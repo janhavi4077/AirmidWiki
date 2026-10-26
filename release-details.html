@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   AirmidWiki - Release Details Template
+  </title>
+  <style>
+   /* Simple left sidebar navigation */
+nav[aria-label="Main navigation"] {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 220px;
+  box-sizing: border-box;
+  padding: 78px 14px 16px;
+  background: #f1f5f9;
+  border-right: 1px solid #cbd5e1;
+}
+nav[aria-label="Main navigation"]::before {
+  content: "AIRMIDWIKI";
+  position: absolute;
+  top: 22px;
+  left: 18px;
+  color: #17365d;
+  font-size: 18px;
+  font-weight: bold;
+}
+nav[aria-label="Main navigation"] a {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px 12px;
+  margin: 0 0 5px;
+  color: #17365d !important;
+  text-decoration: none !important;
+  font-weight: bold;
+  border-left: 3px solid transparent;
+}
+nav[aria-label="Main navigation"] a:hover {
+  background: #e2eaf4;
+  border-left-color: #17365d;
+}
+body { margin-left: 220px !important; }
+@media (max-width: 650px) {
+  nav[aria-label="Main navigation"] {
+    position: static;
+    width: 100%;
+    padding: 62px 12px 10px;
+    border-right: 0;
+    border-bottom: 1px solid #cbd5e1;
+  }
+  body { margin-left: 0 !important; }
+}
+
+/* ---- Visual polish layer (CSS only; page content and markup are untouched) ---- */
+html { scroll-behavior: smooth; }
+body { font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif !important; font-size: 16px; -webkit-font-smoothing: antialiased; }
+
+/* Header */
+body > header { background: linear-gradient(135deg, #17365d 0%, #24598f 100%) !important; border-bottom: 4px solid #3974b8; }
+body > header h1 { letter-spacing: -0.01em; }
+
+/* Cards */
+main > section { box-shadow: 0 1px 2px rgba(23,54,93,.06), 0 4px 14px rgba(23,54,93,.05); }
+main h2 { letter-spacing: -0.01em; line-height: 1.25; }
+main h3 { margin: 1.5em 0 .5em; line-height: 1.3; }
+main h2[id], main h3[id], main section[id], main article[id] { scroll-margin-top: 16px; }
+main p, main li { max-width: 78ch; }
+main li { margin-bottom: 6px; }
+
+/* Links */
+main a { color: #1d5fa8; text-underline-offset: 3px; }
+main a:hover { color: #17365d; text-decoration-thickness: 2px; }
+a:focus-visible { outline: 3px solid #3974b8; outline-offset: 2px; border-radius: 3px; }
+
+/* Tables: zebra rows, hover highlight, easier scanning */
+table { font-size: 15px; background: #fff; }
+tbody tr:nth-child(even) td { background: #f8fafc; }
+tbody tr:hover td { background: #eef5ff; }
+th { white-space: nowrap; font-size: 14px; }
+
+/* "On this page" box: accent edge, two columns on wide screens */
+section[aria-label="On this page"] { border-left: 4px solid #3974b8 !important; }
+section[aria-label="On this page"] ul { columns: 2; column-gap: 32px; }
+
+/* Notes, code, figures */
+code { background: #eef2f7; padding: 2px 6px; border-radius: 4px; font-size: .92em; }
+figure { box-shadow: 0 1px 2px rgba(23,54,93,.05); }
+footer { margin-top: 24px; }
+
+/* Sidebar: friendlier spacing + "you are here" marker */
+nav[aria-label="Main navigation"] { overflow-y: auto; box-shadow: 1px 0 0 rgba(23,54,93,.04); }
+nav[aria-label="Main navigation"] a { border-radius: 0 6px 6px 0; transition: background .15s; }
+nav[aria-label="Main navigation"] a:focus-visible { outline: 3px solid #3974b8; outline-offset: -3px; }
+/* You-are-here marker for this page */
+nav[aria-label="Main navigation"] a[href="releases.html"] { background: #dce8f6; border-left-color: #17365d; }
+
+/* Mobile: sidebar becomes a wrapping top menu */
+@media (max-width: 900px) {
+  section[aria-label="On this page"] ul { columns: 1; }
+}
+@media (max-width: 650px) {
+  nav[aria-label="Main navigation"] { position: relative; display: flex; flex-wrap: wrap; gap: 6px; padding: 54px 12px 12px; }
+  nav[aria-label="Main navigation"]::before { top: 16px; }
+  nav[aria-label="Main navigation"] a { width: auto; margin: 0; border: 1px solid #cbd5e1; border-radius: 6px; background: #fff; }
+  body > header { padding: 18px 5%; }
+  body > header h1 { font-size: 26px !important; }
+}
+
+/* Print: content only */
+@media print {
+  nav[aria-label="Main navigation"] { display: none; }
+  body { margin-left: 0 !important; background: #fff !important; }
+  main > section { box-shadow: none; break-inside: avoid; }
+}
+  </style>
+ </head>
+ <body style="background:#f3f6fb;color:#243247;font-family:Arial,Helvetica,sans-serif;line-height:1.6;">
+  <header style="background:#17365d;color:#fff;padding:22px 5%;">
+   <h1 style="margin:0;font-size:32px;">
+    AirmidWiki
+   </h1>
+   <p style="margin:4px 0 0;color:#e4edf8;">
+    Reusable template for future release notes
+   </p>
+  </header>
+  <nav aria-label="Main navigation">
+   <a href="index.html" style="color:#17365d;font-weight:bold;text-decoration:none;">
+    Home
+   </a>
+   <a href="releases.html" style="color:#17365d;font-weight:bold;text-decoration:none;">
+    Release History
+   </a>
+   <a href="configuration.html" style="color:#17365d;font-weight:bold;text-decoration:none;">
+    Configuration
+   </a>
+   <a href="about.html" style="color:#17365d;font-weight:bold;text-decoration:none;">
+    About
+   </a>
+  </nav>
+  <main style="max-width:1100px;margin:24px auto;padding:0 20px 20px;">
+   <p>
+    <a href="releases.html">
+     ← Back to Release History
+    </a>
+   </p>
+   <section style="background:#fff;border:1px solid #d8e0ea;border-radius:10px;padding:20px;margin:18px 0;">
+    <h2 style="color:#17365d;margin-top:0;">
+     Release information
+    </h2>
+    <div style="overflow-x:auto;">
+     <table style="width:100%;border-collapse:collapse;margin:14px 0;">
+      <thead>
+       <tr>
+        <th style="background:#e7eef7;color:#17365d;text-align:left;padding:11px;border:1px solid #cbd5e1;">
+         Field
+        </th>
+        <th style="background:#e7eef7;color:#17365d;text-align:left;padding:11px;border:1px solid #cbd5e1;">
+         Enter approved information
+        </th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         Version
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         [Release version]
+        </td>
+       </tr>
+       <tr>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         Release date
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         [Approved date]
+        </td>
+       </tr>
+       <tr>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         Release label
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         [Label from approved source]
+        </td>
+       </tr>
+       <tr>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         Environment
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         [For example, UAT — only if confirmed]
+        </td>
+       </tr>
+       <tr>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         Overall release status
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         [Status from approved source]
+        </td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+    <h3 style="color:#244c7a;">
+     Release summary
+    </h3>
+    <p>
+     [Write a short summary based only on the approved release note.]
+    </p>
+   </section>
+   <section style="background:#fff;border:1px solid #d8e0ea;border-radius:10px;padding:20px;margin:18px 0;">
+    <h2 style="color:#17365d;margin-top:0;">
+     Summary of changes
+    </h2>
+    <div style="overflow-x:auto;">
+     <table style="width:100%;border-collapse:collapse;margin:14px 0;">
+      <thead>
+       <tr>
+        <th style="background:#e7eef7;color:#17365d;text-align:left;padding:11px;border:1px solid #cbd5e1;">
+         Module
+        </th>
+        <th style="background:#e7eef7;color:#17365d;text-align:left;padding:11px;border:1px solid #cbd5e1;">
+         Tracking item
+        </th>
+        <th style="background:#e7eef7;color:#17365d;text-align:left;padding:11px;border:1px solid #cbd5e1;">
+         Short description
+        </th>
+        <th style="background:#e7eef7;color:#17365d;text-align:left;padding:11px;border:1px solid #cbd5e1;">
+         Status
+        </th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         [Module]
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         [Item ID]
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         [One-line summary]
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         [Source status]
+        </td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+   </section>
+   <section style="background:#fff;border:1px solid #d8e0ea;border-radius:10px;padding:20px;margin:18px 0;border-left:6px solid #9aaec4;">
+    <h2 style="color:#17365d;margin-top:0;">
+     Detailed change — copy this section for each item
+    </h2>
+    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;">
+     <h3 style="color:#244c7a;margin:0 10px 0 0;font-size:19px;">
+      Item [Item ID]: [Module — change title]
+     </h3>
+     <span style="display:inline-block;padding:3px 10px;border-radius:999px;font-size:13px;font-weight:bold;white-space:nowrap;background:#e7eef7;color:#17365d;">
+      [Type]
+     </span>
+     <span style="display:inline-block;padding:3px 10px;border-radius:999px;font-size:13px;font-weight:bold;white-space:nowrap;background:#fff7e6;color:#946200;">
+      [Status]
+     </span>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:10px 32px;background:#f8fafc;border:1px solid #e1e8f0;border-radius:8px;padding:10px 14px;margin:12px 0 16px;">
+     <div>
+      <div style="font-size:12px;color:#526176;">
+       Reported
+      </div>
+      <div style="font-weight:bold;color:#243247;">
+       [Date from source]
+      </div>
+     </div>
+     <div>
+      <div style="font-size:12px;color:#526176;">
+       Assigned developer (shown in sheet)
+      </div>
+      <div style="font-weight:bold;color:#243247;">
+       [Name, if recorded]
+      </div>
+     </div>
+     <div>
+      <div style="font-size:12px;color:#526176;">
+       Recorded by
+      </div>
+      <div style="font-weight:bold;color:#243247;">
+       [Name, if recorded]
+      </div>
+     </div>
+    </div>
+    <h3 style="color:#244c7a;font-size:17px;margin:18px 0 8px;">
+     What changed
+    </h3>
+    <p style="margin:0 0 8px;color:#526176;font-size:14px;">
+     Use
+     <strong>
+      one
+     </strong>
+     of the two layouts below. One change: use the single box. Several points: use the table, one row per point.
+    </p>
+    <div style="border-left:4px solid #3974b8;background:#f4f8fd;padding:12px 16px;border-radius:0 8px 8px 0;margin:12px 0;">
+     <div style="font-size:12px;color:#526176;margin-bottom:2px;">
+      Change recorded
+     </div>
+     <div style="font-size:17px;color:#243247;">
+      [Single change: write the source entry without adding assumptions.]
+     </div>
+    </div>
+    <p style="margin:0 0 10px;">
+     <strong style="color:#17365d;">
+      [N] changes recorded
+     </strong>
+     ·
+     <strong style="color:#176b3a;">
+      [N] done
+     </strong>
+     ·
+     <strong style="color:#9a4a00;">
+      [N] to discuss
+     </strong>
+    </p>
+    <div style="overflow-x:auto;">
+     <table style="width:100%;border-collapse:collapse;margin:8px 0;">
+      <thead>
+       <tr>
+        <th style="background:#e7eef7;color:#17365d;text-align:left;padding:11px;border:1px solid #cbd5e1;width:48px;text-align:center;">
+         #
+        </th>
+        <th style="background:#e7eef7;color:#17365d;text-align:left;padding:11px;border:1px solid #cbd5e1;width:24%;">
+         Area
+        </th>
+        <th style="background:#e7eef7;color:#17365d;text-align:left;padding:11px;border:1px solid #cbd5e1;">
+         What was recorded
+        </th>
+        <th style="background:#e7eef7;color:#17365d;text-align:left;padding:11px;border:1px solid #cbd5e1;width:110px;">
+         Status
+        </th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;text-align:center;color:#526176;">
+         [#]
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;font-weight:bold;color:#17365d;">
+         [Area or screen]
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         [Describe this point from the source without adding assumptions.]
+         <div style="margin-top:6px;font-size:14px;color:#526176;">
+          [Optional note from the source]
+         </div>
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         <span style="display:inline-block;padding:3px 10px;border-radius:999px;font-size:13px;font-weight:bold;white-space:nowrap;background:#eef2f7;color:#526176;">
+          [Done / Pending / To discuss]
+         </span>
+        </td>
+       </tr>
+       <tr>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;text-align:center;color:#526176;">
+         [#]
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;font-weight:bold;color:#17365d;">
+         [Area or screen]
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         [Next point from the source.]
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         <span style="display:inline-block;padding:3px 10px;border-radius:999px;font-size:13px;font-weight:bold;white-space:nowrap;background:#eef2f7;color:#526176;">
+          [Status]
+         </span>
+        </td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+    <h3 style="color:#244c7a;font-size:17px;margin:18px 0 8px;">
+     User instructions (optional)
+    </h3>
+    <p>
+     [Add numbered steps only when the actual workflow has been confirmed. If no approved steps are available yet, leave this section marked “Instructions not documented”.]
+    </p>
+    <div style="margin:12px 0 0;padding:10px 14px;background:#f8fafc;border:1px dashed #9aaec4;border-radius:8px;">
+     <strong style="color:#17365d;">
+      Screenshot to add: Related application screen
+     </strong>
+     <p style="margin:4px 0 0;color:#526176;font-size:14px;">
+      Add an approved screenshot of the relevant screen when available. Do not use test images as final documentation.
+     </p>
+    </div>
+    <h3 style="color:#244c7a;font-size:17px;margin:18px 0 8px;">
+     Before publishing
+    </h3>
+    <ul>
+     <li>
+      Verify details against the approved source.
+     </li>
+     <li>
+      Keep status wording aligned with the source.
+     </li>
+     <li>
+      Add only approved screenshots.
+     </li>
+     <li>
+      Check all navigation links and image paths.
+     </li>
+    </ul>
+   </section>
+  </main>
+  <footer style="padding:18px 5%;color:#526176;border-top:1px solid #d8e0ea;font-size:14px;">
+   AirmidWiki · Internal release documentation
+  </footer>
+ </body>
+</html>
+

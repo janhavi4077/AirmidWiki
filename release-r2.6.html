@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   AirmidWiki - Release R2.6
+  </title>
+  <style>
+   /* Simple left sidebar navigation */
+nav[aria-label="Main navigation"] {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 220px;
+  box-sizing: border-box;
+  padding: 78px 14px 16px;
+  background: #f1f5f9;
+  border-right: 1px solid #cbd5e1;
+}
+nav[aria-label="Main navigation"]::before {
+  content: "AIRMIDWIKI";
+  position: absolute;
+  top: 22px;
+  left: 18px;
+  color: #17365d;
+  font-size: 18px;
+  font-weight: bold;
+}
+nav[aria-label="Main navigation"] a {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px 12px;
+  margin: 0 0 5px;
+  color: #17365d !important;
+  text-decoration: none !important;
+  font-weight: bold;
+  border-left: 3px solid transparent;
+}
+nav[aria-label="Main navigation"] a:hover {
+  background: #e2eaf4;
+  border-left-color: #17365d;
+}
+body { margin-left: 220px !important; }
+@media (max-width: 650px) {
+  nav[aria-label="Main navigation"] {
+    position: static;
+    width: 100%;
+    padding: 62px 12px 10px;
+    border-right: 0;
+    border-bottom: 1px solid #cbd5e1;
+  }
+  body { margin-left: 0 !important; }
+}
+
+/* ---- Visual polish layer (CSS only; page content and markup are untouched) ---- */
+html { scroll-behavior: smooth; }
+body { font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif !important; font-size: 16px; -webkit-font-smoothing: antialiased; }
+
+/* Header */
+body > header { background: linear-gradient(135deg, #17365d 0%, #24598f 100%) !important; border-bottom: 4px solid #3974b8; }
+body > header h1 { letter-spacing: -0.01em; }
+
+/* Cards */
+main > section { box-shadow: 0 1px 2px rgba(23,54,93,.06), 0 4px 14px rgba(23,54,93,.05); }
+main h2 { letter-spacing: -0.01em; line-height: 1.25; }
+main h3 { margin: 1.5em 0 .5em; line-height: 1.3; }
+main h2[id], main h3[id], main section[id], main article[id] { scroll-margin-top: 16px; }
+main p, main li { max-width: 78ch; }
+main li { margin-bottom: 6px; }
+
+/* Links */
+main a { color: #1d5fa8; text-underline-offset: 3px; }
+main a:hover { color: #17365d; text-decoration-thickness: 2px; }
+a:focus-visible { outline: 3px solid #3974b8; outline-offset: 2px; border-radius: 3px; }
+
+/* Tables: zebra rows, hover highlight, easier scanning */
+table { font-size: 15px; background: #fff; }
+tbody tr:nth-child(even) td { background: #f8fafc; }
+tbody tr:hover td { background: #eef5ff; }
+th { white-space: nowrap; font-size: 14px; }
+
+/* "On this page" box: accent edge, two columns on wide screens */
+section[aria-label="On this page"] { border-left: 4px solid #3974b8 !important; }
+section[aria-label="On this page"] ul { columns: 2; column-gap: 32px; }
+
+/* Notes, code, figures */
+code { background: #eef2f7; padding: 2px 6px; border-radius: 4px; font-size: .92em; }
+figure { box-shadow: 0 1px 2px rgba(23,54,93,.05); }
+footer { margin-top: 24px; }
+
+/* Sidebar: friendlier spacing + "you are here" marker */
+nav[aria-label="Main navigation"] { overflow-y: auto; box-shadow: 1px 0 0 rgba(23,54,93,.04); }
+nav[aria-label="Main navigation"] a { border-radius: 0 6px 6px 0; transition: background .15s; }
+nav[aria-label="Main navigation"] a:focus-visible { outline: 3px solid #3974b8; outline-offset: -3px; }
+/* You-are-here marker for this page */
+nav[aria-label="Main navigation"] a[href="releases.html"] { background: #dce8f6; border-left-color: #17365d; }
+
+/* Mobile: sidebar becomes a wrapping top menu */
+@media (max-width: 900px) {
+  section[aria-label="On this page"] ul { columns: 1; }
+}
+@media (max-width: 650px) {
+  nav[aria-label="Main navigation"] { position: relative; display: flex; flex-wrap: wrap; gap: 6px; padding: 54px 12px 12px; }
+  nav[aria-label="Main navigation"]::before { top: 16px; }
+  nav[aria-label="Main navigation"] a { width: auto; margin: 0; border: 1px solid #cbd5e1; border-radius: 6px; background: #fff; }
+  body > header { padding: 18px 5%; }
+  body > header h1 { font-size: 26px !important; }
+}
+
+/* Print: content only */
+@media print {
+  nav[aria-label="Main navigation"] { display: none; }
+  body { margin-left: 0 !important; background: #fff !important; }
+  main > section { box-shadow: none; break-inside: avoid; }
+}
+  </style>
+ </head>
+ <body style="background:#f3f6fb;color:#243247;font-family:Arial,Helvetica,sans-serif;line-height:1.6;">
+  <header style="background:#17365d;color:#fff;padding:22px 5%;">
+   <h1 style="margin:0;font-size:32px;">
+    AirmidWiki
+   </h1>
+   <p style="margin:4px 0 0;color:#e4edf8;">
+    Release details · item summaries and status
+   </p>
+  </header>
+  <nav aria-label="Main navigation">
+   <a href="index.html" style="color:#17365d;font-weight:bold;text-decoration:none;">
+    Home
+   </a>
+   <a href="releases.html" style="color:#17365d;font-weight:bold;text-decoration:none;">
+    Release History
+   </a>
+   <a href="configuration.html" style="color:#17365d;font-weight:bold;text-decoration:none;">
+    Configuration
+   </a>
+   <a href="about.html" style="color:#17365d;font-weight:bold;text-decoration:none;">
+    About
+   </a>
+  </nav>
+  <main style="max-width:1100px;margin:24px auto;padding:0 20px 20px;">
+   <p>
+    <a href="releases.html">
+     ← Back to Release History
+    </a>
+   </p>
+   <section aria-label="On this page" style="background:#fff;border:1px solid #d8e0ea;border-radius:10px;padding:16px 20px;margin:18px 0;">
+    <h2 style="color:#17365d;margin:0 0 8px;font-size:20px;">
+     On this page
+    </h2>
+    <p style="margin:0 0 8px;">
+     Jump directly to a module or tracking item.
+    </p>
+    <ul style="margin:0;padding-left:22px;">
+     <li>
+      <a href="#release-overview">
+       Release overview
+      </a>
+     </li>
+     <li>
+      <a href="#release-summary">
+       Summary of changes
+      </a>
+     </li>
+     <li>
+      <a href="#pharmacy">
+       Pharmacy
+      </a>
+     </li>
+     <li>
+      <a href="#abha">
+       ABHA
+      </a>
+     </li>
+     <li>
+      <a href="#administration">
+       Administration
+      </a>
+     </li>
+     <li>
+      <a href="#diet-schedule">
+       Other — Diet Schedule
+      </a>
+     </li>
+     <li>
+      <a href="#before-publishing">
+       Before publishing
+      </a>
+     </li>
+    </ul>
+   </section>
+   <section style="background:#fff;border:1px solid #d8e0ea;border-radius:10px;padding:20px;margin:18px 0;">
+    <h2 id="release-overview" style="color:#17365d;margin-top:0;font-size:27px;">
+     Release R2.6
+    </h2>
+    <p>
+     Pharmacy, ABHA, Administration, and Diet Schedule updates
+    </p>
+    <div style="overflow-x:auto;">
+     <table style="width:100%;border-collapse:collapse;margin:14px 0;">
+      <thead>
+       <tr>
+        <th style="background:#e7eef7;color:#17365d;text-align:left;padding:11px;border:1px solid #cbd5e1;">
+         Release information
+        </th>
+        <th style="background:#e7eef7;color:#17365d;text-align:left;padding:11px;border:1px solid #cbd5e1;">
+         Recorded value
+        </th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         Release label
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         28 Oct 26 - R2.6
+        </td>
+       </tr>
+       <tr>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         Planned release date
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         28 October 2026
+        </td>
+       </tr>
+       <tr>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         Source records
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         Spreadsheet items 2351–2354 and 2356–2361
+        </td>
+       </tr>
+       <tr>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         Release status
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         <span style="display:inline-block;background:#fff7e6;color:#946200;padding:3px 9px;border-radius:999px;font-size:13px;font-weight:bold;">
+          Pending
+         </span>
+        </td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+    <div style="background:#fff7e6;border-left:4px solid #d99a22;padding:12px;">
+     <strong>
+      Important:
+     </strong>
+     The release is marked Pending in the spreadsheet even though some individual items are marked Completed. Item 2355 is for Kenya Mediforte HIMS and is excluded from this Airmid Dev page.
+    </div>
+   </section>
+   <section aria-label="Release at a glance" style="background:#fff;border:1px solid #d8e0ea;border-radius:10px;padding:20px;margin:18px 0;">
+    <h2 style="color:#17365d;margin-top:0;font-size:20px;">
+     Release at a glance
+    </h2>
+    <div style="display:flex;flex-wrap:wrap;gap:12px;">
+     <div style="flex:1 1 140px;border:1px solid #d8e0ea;border-radius:8px;padding:10px 14px;background:#f8fafc;border-top:4px solid #3974b8;">
+      <div style="font-size:28px;font-weight:bold;color:#17365d;line-height:1.1;">
+       10
+      </div>
+      <div style="font-size:14px;color:#526176;">
+       Items in this release
+      </div>
+     </div>
+     <div style="flex:1 1 140px;border:1px solid #d8e0ea;border-radius:8px;padding:10px 14px;background:#f8fafc;border-top:4px solid #2f9e5b;">
+      <div style="font-size:28px;font-weight:bold;color:#17365d;line-height:1.1;">
+       5
+      </div>
+      <div style="font-size:14px;color:#526176;">
+       Completed
+      </div>
+     </div>
+     <div style="flex:1 1 140px;border:1px solid #d8e0ea;border-radius:8px;padding:10px 14px;background:#f8fafc;border-top:4px solid #d99a22;">
+      <div style="font-size:28px;font-weight:bold;color:#17365d;line-height:1.1;">
+       5
+      </div>
+      <div style="font-size:14px;color:#526176;">
+       Pending
+      </div>
+     </div>
+    </div>
+   </section>
+   <section aria-label="How to read this page" style="background:#fff;border:1px solid #d8e0ea;border-radius:10px;padding:20px;margin:18px 0;">
+    <h2 style="color:#17365d;margin-top:0;font-size:20px;">
+     How to read this page
+    </h2>
+    <p style="margin:0 0 8px;">
+     Each change below has a header (item, type, status), who worked on it, and what was recorded. Colour on the left edge of a change shows its status.
+    </p>
+    <div style="display:flex;gap:10px;align-items:baseline;margin:6px 0;">
+     <span style="flex:0 0 96px;">
+      <span style="display:inline-block;padding:3px 10px;border-radius:999px;font-size:13px;font-weight:bold;white-space:nowrap;background:#eef2f7;color:#17365d;">
+       Item
+      </span>
+     </span>
+     <span>
+      The tracking number of a change. Quote it when you ask the team about that change.
+     </span>
+    </div>
+    <div style="display:flex;gap:10px;align-items:baseline;margin:6px 0;">
+     <span style="flex:0 0 96px;">
+      <span style="display:inline-block;padding:3px 10px;border-radius:999px;font-size:13px;font-weight:bold;white-space:nowrap;background:#e8f5ec;color:#176b3a;">
+       Completed
+      </span>
+     </span>
+     <span>
+      Recorded as completed or done in the source sheet.
+     </span>
+    </div>
+    <div style="display:flex;gap:10px;align-items:baseline;margin:6px 0;">
+     <span style="flex:0 0 96px;">
+      <span style="display:inline-block;padding:3px 10px;border-radius:999px;font-size:13px;font-weight:bold;white-space:nowrap;background:#fff7e6;color:#946200;">
+       Pending
+      </span>
+     </span>
+     <span>
+      Recorded as pending in the source sheet. Not final yet.
+     </span>
+    </div>
+    <div style="display:flex;gap:10px;align-items:baseline;margin:6px 0;">
+     <span style="flex:0 0 96px;">
+      <span style="display:inline-block;padding:3px 10px;border-radius:999px;font-size:13px;font-weight:bold;white-space:nowrap;background:#fde9d6;color:#9a4a00;">
+       To discuss
+      </span>
+     </span>
+     <span>
+      Marked “discuss” in the source sheet. Confirm before treating it as final.
+     </span>
+    </div>
+   </section>
+   <section style="background:#fff;border:1px solid #d8e0ea;border-radius:10px;padding:20px;margin:18px 0;">
+    <h2 id="release-summary" style="color:#17365d;margin-top:0;">
+     At a glance
+    </h2>
+    <div style="overflow-x:auto;">
+     <table style="width:100%;border-collapse:collapse;margin:14px 0;">
+      <thead>
+       <tr>
+        <th style="background:#e7eef7;color:#17365d;text-align:left;padding:11px;border:1px solid #cbd5e1;">
+         Module
+        </th>
+        <th style="background:#e7eef7;color:#17365d;text-align:left;padding:11px;border:1px solid #cbd5e1;">
+         Item
+        </th>
+        <th style="background:#e7eef7;color:#17365d;text-align:left;padding:11px;border:1px solid #cbd5e1;">
+         Change area
+        </th>
+        <th style="background:#e7eef7;color:#17365d;text-align:left;padding:11px;border:1px solid #cbd5e1;">
+         Status
+        </th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         Pharmacy
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         <a href="#item-2351">
+          2351
+         </a>
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         Pharmacy
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         <span style="display:inline-block;background:#fff7e6;color:#946200;padding:3px 9px;border-radius:999px;font-size:13px;font-weight:bold;">
+          Pending
+         </span>
+        </td>
+       </tr>
+       <tr>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         ABHA
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         <a href="#item-2352">
+          2352
+         </a>
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         IPD EMR Wellness
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         <span style="display:inline-block;background:#e8f5ec;color:#176b3a;padding:3px 9px;border-radius:999px;font-size:13px;font-weight:bold;">
+          Completed
+         </span>
+        </td>
+       </tr>
+       <tr>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         ABHA
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         <a href="#item-2353">
+          2353
+         </a>
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         Registration and ABHA List
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         <span style="display:inline-block;background:#e8f5ec;color:#176b3a;padding:3px 9px;border-radius:999px;font-size:13px;font-weight:bold;">
+          Completed
+         </span>
+        </td>
+       </tr>
+       <tr>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         ABHA
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         <a href="#item-2354">
+          2354
+         </a>
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         Wellness Save and Update
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         <span style="display:inline-block;background:#e8f5ec;color:#176b3a;padding:3px 9px;border-radius:999px;font-size:13px;font-weight:bold;">
+          Completed
+         </span>
+        </td>
+       </tr>
+       <tr>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         Administration
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         <a href="#item-2356">
+          2356
+         </a>
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         Administration — Create User
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         <span style="display:inline-block;background:#e8f5ec;color:#176b3a;padding:3px 9px;border-radius:999px;font-size:13px;font-weight:bold;">
+          Completed
+         </span>
+        </td>
+       </tr>
+       <tr>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         Other — Diet Schedule
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         <a href="#item-2357">
+          2357
+         </a>
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         Other — Diet Schedule Header
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         <span style="display:inline-block;background:#e8f5ec;color:#176b3a;padding:3px 9px;border-radius:999px;font-size:13px;font-weight:bold;">
+          Completed
+         </span>
+        </td>
+       </tr>
+       <tr>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         Other — Diet Schedule
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         <a href="#item-2358">
+          2358
+         </a>
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         Other — Draft and Final Canteen Request
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         <span style="display:inline-block;background:#fff7e6;color:#946200;padding:3px 9px;border-radius:999px;font-size:13px;font-weight:bold;">
+          Pending
+         </span>
+        </td>
+       </tr>
+       <tr>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         Other — Diet Schedule
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         <a href="#item-2359">
+          2359
+         </a>
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         Other — Diet Schedule List
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         <span style="display:inline-block;background:#fff7e6;color:#946200;padding:3px 9px;border-radius:999px;font-size:13px;font-weight:bold;">
+          Pending
+         </span>
+        </td>
+       </tr>
+       <tr>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         Other — Diet Schedule
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         <a href="#item-2360">
+          2360
+         </a>
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         Other — Canteen Request Details
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         <span style="display:inline-block;background:#fff7e6;color:#946200;padding:3px 9px;border-radius:999px;font-size:13px;font-weight:bold;">
+          Pending
+         </span>
+        </td>
+       </tr>
+       <tr>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         Other — Diet Schedule
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         <a href="#item-2361">
+          2361
+         </a>
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         Other — Patient Assessment
+        </td>
+        <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+         <span style="display:inline-block;background:#fff7e6;color:#946200;padding:3px 9px;border-radius:999px;font-size:13px;font-weight:bold;">
+          Pending
+         </span>
+        </td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+    <p style="font-size:14px;color:#526176;margin-bottom:0;">
+     Select an item number to jump to its full description.
+    </p>
+   </section>
+   <section style="margin:24px 0;">
+    <h2 id="pharmacy" style="color:#17365d;border-bottom:2px solid #cbd5e1;padding-bottom:8px;">
+     Pharmacy
+    </h2>
+    <section style="background:#fff;border:1px solid #d8e0ea;border-left:6px solid #d99a22;border-radius:10px;padding:20px;margin:16px 0;">
+     <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;">
+      <h3 id="item-2351" style="color:#244c7a;margin:0 10px 0 0;font-size:19px;">
+       Item 2351: Pharmacy
+      </h3>
+      <span style="display:inline-block;padding:3px 10px;border-radius:999px;font-size:13px;font-weight:bold;white-space:nowrap;background:#e7eef7;color:#17365d;">
+       Requirement
+      </span>
+      <span style="display:inline-block;padding:3px 10px;border-radius:999px;font-size:13px;font-weight:bold;white-space:nowrap;background:#fff7e6;color:#946200;">
+       Pending
+      </span>
+     </div>
+     <div style="display:flex;flex-wrap:wrap;gap:10px 32px;background:#f8fafc;border:1px solid #e1e8f0;border-radius:8px;padding:10px 14px;margin:12px 0 16px;">
+      <div>
+       <div style="font-size:12px;color:#526176;">
+        Reported
+       </div>
+       <div style="font-weight:bold;color:#243247;">
+        21 October 2026
+       </div>
+      </div>
+      <div>
+       <div style="font-size:12px;color:#526176;">
+        Assigned developer (shown in sheet)
+       </div>
+       <div style="font-weight:bold;color:#243247;">
+        Sanjay
+       </div>
+      </div>
+      <div>
+       <div style="font-size:12px;color:#526176;">
+        Recorded by
+       </div>
+       <div style="font-weight:bold;color:#243247;">
+        Rachana
+       </div>
+      </div>
+     </div>
+     <div style="border-left:4px solid #3974b8;background:#f4f8fd;padding:12px 16px;border-radius:0 8px 8px 0;margin:12px 0;">
+      <div style="font-size:12px;color:#526176;margin-bottom:2px;">
+       Change recorded
+      </div>
+      <div style="font-size:17px;color:#243247;">
+       Add a date-wise sales range bill print option in Browse Sales Bill.
+      </div>
+     </div>
+     <div style="margin:12px 0 0;padding:10px 14px;background:#f8fafc;border:1px dashed #9aaec4;border-radius:8px;">
+      <strong style="color:#17365d;">
+       Screenshot to add: Pharmacy sales bill screen
+      </strong>
+      <p style="margin:4px 0 0;color:#526176;font-size:14px;">
+       No screenshot was included for this item in the current project. Add an approved screenshot here when available.
+      </p>
+     </div>
+    </section>
+   </section>
+   <section style="margin:24px 0;">
+    <h2 id="abha" style="color:#17365d;border-bottom:2px solid #cbd5e1;padding-bottom:8px;">
+     ABHA
+    </h2>
+    <section style="background:#fff;border:1px solid #d8e0ea;border-left:6px solid #2f9e5b;border-radius:10px;padding:20px;margin:16px 0;">
+     <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;">
+      <h3 id="item-2352" style="color:#244c7a;margin:0 10px 0 0;font-size:19px;">
+       Item 2352: ABHA — IPD EMR Wellness
+      </h3>
+      <span style="display:inline-block;padding:3px 10px;border-radius:999px;font-size:13px;font-weight:bold;white-space:nowrap;background:#e7eef7;color:#17365d;">
+       Requirement
+      </span>
+      <span style="display:inline-block;padding:3px 10px;border-radius:999px;font-size:13px;font-weight:bold;white-space:nowrap;background:#e8f5ec;color:#176b3a;">
+       Completed
+      </span>
+     </div>
+     <div style="display:flex;flex-wrap:wrap;gap:10px 32px;background:#f8fafc;border:1px solid #e1e8f0;border-radius:8px;padding:10px 14px;margin:12px 0 16px;">
+      <div>
+       <div style="font-size:12px;color:#526176;">
+        Reported
+       </div>
+       <div style="font-weight:bold;color:#243247;">
+        22 October 2026
+       </div>
+      </div>
+      <div>
+       <div style="font-size:12px;color:#526176;">
+        Assigned developer (shown in sheet)
+       </div>
+       <div style="font-weight:bold;color:#243247;">
+        Subhash
+       </div>
+      </div>
+      <div>
+       <div style="font-size:12px;color:#526176;">
+        Recorded by
+       </div>
+       <div style="font-weight:bold;color:#243247;">
+        Raksha
+       </div>
+      </div>
+     </div>
+     <div style="border-left:4px solid #3974b8;background:#f4f8fd;padding:12px 16px;border-radius:0 8px 8px 0;margin:12px 0;">
+      <div style="font-size:12px;color:#526176;margin-bottom:2px;">
+       Change recorded
+      </div>
+      <div style="font-size:17px;color:#243247;">
+       IPD EMR: wellness save and update with design.
+      </div>
+     </div>
+     <div style="margin:12px 0 0;padding:10px 14px;background:#f8fafc;border:1px dashed #9aaec4;border-radius:8px;">
+      <strong style="color:#17365d;">
+       Screenshot to add: IPD EMR wellness screen
+      </strong>
+      <p style="margin:4px 0 0;color:#526176;font-size:14px;">
+       No screenshot was included for this item in the current project. Add an approved screenshot here when available.
+      </p>
+     </div>
+    </section>
+    <section style="background:#fff;border:1px solid #d8e0ea;border-left:6px solid #2f9e5b;border-radius:10px;padding:20px;margin:16px 0;">
+     <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;">
+      <h3 id="item-2353" style="color:#244c7a;margin:0 10px 0 0;font-size:19px;">
+       Item 2353: ABHA — Registration and ABHA List
+      </h3>
+      <span style="display:inline-block;padding:3px 10px;border-radius:999px;font-size:13px;font-weight:bold;white-space:nowrap;background:#e7eef7;color:#17365d;">
+       Requirement
+      </span>
+      <span style="display:inline-block;padding:3px 10px;border-radius:999px;font-size:13px;font-weight:bold;white-space:nowrap;background:#e8f5ec;color:#176b3a;">
+       Completed
+      </span>
+     </div>
+     <div style="display:flex;flex-wrap:wrap;gap:10px 32px;background:#f8fafc;border:1px solid #e1e8f0;border-radius:8px;padding:10px 14px;margin:12px 0 16px;">
+      <div>
+       <div style="font-size:12px;color:#526176;">
+        Reported
+       </div>
+       <div style="font-weight:bold;color:#243247;">
+        22 October 2026
+       </div>
+      </div>
+      <div>
+       <div style="font-size:12px;color:#526176;">
+        Assigned developer (shown in sheet)
+       </div>
+       <div style="font-weight:bold;color:#243247;">
+        Subhash
+       </div>
+      </div>
+      <div>
+       <div style="font-size:12px;color:#526176;">
+        Recorded by
+       </div>
+       <div style="font-weight:bold;color:#243247;">
+        Raksha
+       </div>
+      </div>
+     </div>
+     <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;margin:8px 0;">
+       <thead>
+        <tr>
+         <th style="background:#e7eef7;color:#17365d;text-align:left;padding:11px;border:1px solid #cbd5e1;width:48px;text-align:center;">
+          #
+         </th>
+         <th style="background:#e7eef7;color:#17365d;text-align:left;padding:11px;border:1px solid #cbd5e1;width:24%;">
+          Area
+         </th>
+         <th style="background:#e7eef7;color:#17365d;text-align:left;padding:11px;border:1px solid #cbd5e1;">
+          What was recorded
+         </th>
+         <th style="background:#e7eef7;color:#17365d;text-align:left;padding:11px;border:1px solid #cbd5e1;width:110px;">
+          Status
+         </th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr>
+         <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;text-align:center;color:#526176;">
+          1
+         </td>
+         <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;font-weight:bold;color:#17365d;">
+          Registration page
+         </td>
+         <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+          State and District details should fetch automatically on the Registration page.
+         </td>
+         <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+          <span style="display:inline-block;padding:3px 10px;border-radius:999px;font-size:13px;font-weight:bold;white-space:nowrap;background:#e8f5ec;color:#176b3a;">
+           Done
+          </span>
+         </td>
+        </tr>
+        <tr>
+         <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;text-align:center;color:#526176;">
+          2
+         </td>
+         <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;font-weight:bold;color:#17365d;">
+          UHID
+         </td>
+         <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+          Generate a unique UHID based on the ABHA Number.
+         </td>
+         <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+          <span style="display:inline-block;padding:3px 10px;border-radius:999px;font-size:13px;font-weight:bold;white-space:nowrap;background:#e8f5ec;color:#176b3a;">
+           Done
+          </span>
+         </td>
+        </tr>
+        <tr>
+         <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;text-align:center;color:#526176;">
+          3
+         </td>
+         <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;font-weight:bold;color:#17365d;">
+          ABHA List page
+         </td>
+         <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+          On the ABHA List page, prevent repeated ABHA Numbers and provide a dropdown for the ABHA Address field.
+         </td>
+         <td style="padding:11px;border:1px solid #cbd5e1;vertical-align:top;">
+          <span style="display:inline-block;padding:3px 10px;border-radius:999px;font-size:13px;font-weight:bold;white-space:nowrap;background:#e8f5ec;color:#176b3a;">
+           Done
+          </span>
+         </td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+     <div style="margin:12px 0 0;padding:10px 14px;background:#f8fafc;border:1px dashed #9aaec4;border-radius:8px;">
+      <strong style="color:#17365d;">
+       Screenshot to add: ABHA Registration / ABHA List
+      </strong>
+      <p style="margin:4px 0 0;color:#526176;font-size:14px;">
+       No screenshot was included for this item in the current project. Add an approved screenshot here when available.
+      </p>
+     </div>
+    </section>
+    <section style="background:#fff;border:1px solid #d8e0ea;border-left:6px solid #2f9e5b;border-radius:10px;padding:20px;margin:16px 0;">
+     <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;">
+      <h3 id="item-2354" style="color:#244c7a;margin:0 10px 0 0;font-size:19px;">
+       Item 2354: ABHA — Wellness Save and Update
+      </h3>
+      <span style="display:inline-block;padding:3px 10px;border-radius:999px;font-size:13px;font-weight:bold;white-space:nowrap;background:#e7eef7;color:#17365d;">
+       Requirement
+      </span>
+      <span style="display:inline-block;padding:3px 10px;border-radius:999px;font-size:13px;font-weight:bold;white-space:nowrap;background:#e8f5ec;color:#176b3a;">
+       Completed
+      </span>
+     </div>
+     <div style="display:flex;flex-wrap:wrap;gap:10px 32px;background:#f8fafc;border:1px solid #e1e8f0;border-radius:8px;padding:10px 14px;margin:12px 0 16px;">
+      <div>
+       <div style="font-size:12px;color:#526176;">
+        Reported
+       </div>
+       <div style="font-weight:bold;color:#243247;">
+        22 October 2026
+       </div>
+      </div>
+      <div>
+       <div style="font-size:12px;color:#526176;">
+        Assigned developer (shown in sheet)
+       </div>
+       <div style="font-weight:bold;color:#243247;">
+        Subhash
+       </div>
+      </div>
+      <div>
+       <div style="font-size:12px;color:#526176;">
+        Recorded by
+       </div>
+       <div style="font-weight:bold;color:#243247;">
+        Vaishnavi
+       </div>
+      </div>
+     </div>
+     <div style="border-left:4px solid #3974b8;background:#f4f8fd;padding:12px 16px;border-radius:0 8px 8px 0;margin:12px 0;">
+      <div style="font-size:12px;color:#526176;margin-bottom:2px;">
+       Change recorded
+      </div>
+      <div style="font-size:17px;color:#243247;">
+       Wellness save and update with design.
+      </div>
+     </div>
+     <div style="margin:12px 0 0;padding:10px 14px;background:#f8fafc;border:1px dashed #9aaec4;border-radius:8px;">
+      <strong style="color:#17365d;">
+       Screenshot to add: Wellness save and update screen
+      </strong>
+      <p style="margin:4px 0 0;color:#526176;font-size:14px;">
+       No screenshot was included for this item in the current project. Add an approved screenshot here when available.
+      </p>
+     </div>
+    </section>
+   </section>
+   <section style="margin:24px 0;">
+    <h2 id="administration" style="color:#17365d;border-bottom:2px solid #cbd5e1;padding-bottom:8px;">
+     Administration
+    </h2>
+    <section style="background:#fff;border:1px solid #d8e0ea;border-left:6px solid #2f9e5b;border-radius:10px;padding:20px;margin:16px 0;">
+     <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;">
+      <h3 id="item-2356" style="color:#244c7a;margin:0 10px 0 0;font-size:19px;">
+       Item 2356: Administration — Create User
+      </h3>
+      <span style="display:inline-block;padding:3px 10px;border-radius:999px;font-size:13px;font-weight:bold;white-space:nowrap;background:#e7eef7;color:#17365d;">
+       Requirement
+      </span>
+      <span style="display:inline-block;padding:3px 10px;border-radius:999px;font-size:13px;font-weight:bold;white-space:nowrap;background:#e8f5ec;color:#176b3a;">
+       Completed
+      </span>
+     </div>
+     <div style="display:flex;flex-wrap:wrap;gap:10px 32px;background:#f8fafc;border:1px solid #e1e8f0;border-radius:8px;padding:10px 14px;margin:12px 0 16px;">
+      <div>
+       <div style="font-size:12px;color:#526176;">
+        Reported
+       </div>
+       <div style="font-weight:bold;color:#243247;">
+        22 October 2026
+       </div>
+      </div>
+      <div>
+       <div style="font-size:12px;color:#526176;">
+        Assigned developer (shown in sheet)
+       </div>
+       <div style="font-weight:bold;color:#243247;">
+        Ambadas
+       </div>
+      </div>
+      <div>
+       <div style="font-size:12px;color:#526176;">
+        Recorded by
+       </div>
+       <div style="font-weight:bold;color:#243247;">
+        Vaishnavi
+       </div>
+      </div>
+     </div>
+     <div style="border-left:4px solid #3974b8;background:#f4f8fd;padding:12px 16px;border-radius:0 8px 8px 0;margin:12px 0;">
+      <div style="font-size:12px;color:#526176;margin-bottom:2px;">
+       Change recorded
+      </div>
+      <div style="font-size:17px;color:#243247;">
+       If a user resigns or leaves the organization, provide an option to mark that user as Inactive.
+      </div>
+     </div>
+     <div style="margin:12px 0 0;padding:10px 14px;background:#f8fafc;border:1px dashed #9aaec4;border-radius:8px;">
+      <strong style="color:#17365d;">
+       Screenshot to add: Create User screen showing Inactive option
+      </strong>
+      <p style="margin:4px 0 0;color:#526176;font-size:14px;">
+       No screenshot was included for this item in the current project. Add an approved screenshot here when available.
+      </p>
+     </div>
+    </section>
+   </section>
+   <section style="margin:24px 0;">
+    <h2 id="diet-schedule" style="color:#17365d;border-bottom:2px solid #cbd5e1;padding-bottom:8px;">
+     Other — Diet Schedule
+    </h2>
+    <section style="background:#fff;border:1px solid #d8e0ea;border-left:6px solid #2f9e5b;border-radius:10px;padding:20px;margin:16px 0;">
+     <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;">
+      <h3 id="item-2357" style="color:#244c7a;margin:0 10px 0 0;font-size:19px;">
+       Item 2357: Other — Diet Schedule Header
+      </h3>
+      <span style="display:inline-block;padding:3px 10px;border-radius:999px;font-size:13px;font-weight:bold;white-space:nowrap;background:#e7eef7;color:#17365d;">
+       Requirement
+      </span>
+      <span style="display:inline-block;padding:3px 10px;border-radius:999px;font-size:13px;font-weight:bold;white-space:nowrap;background:#e8f5ec;color:#176b3a;">
+       Completed
+      </span>
+     </div>
+     <div style="display:flex;flex-wrap:wrap;gap:10px 32px;background:#f8fafc;border:1px solid #e1e8f0;border-radius:8px;padding:10px 14px;margin:12px 0 16px;">
+      <div>
+       <div style="font-size:12px;color:#526176;">
+        Reported
+       </div>
+       <div style="font-weight:bold;color:#243247;">
+        22 October 2026
+       </div>
+      </div>
+      <div>
+       <div style="font-size:12px;color:#526176;">
+        Assigned developer (shown in sheet)
+       </div>
+       <div style="font-weight:bold;color:#243247;">
+        Subhash
+       </div>
+      </div>
+      <div>
+       <div style="font-size:12px;color:#526176;">
+        Recorded by
+       </div>
+       <div style="font-weight:bold;color:#243247;">
+        Rachana
+       </div>
+      </div>
+     </div>
+     <div style="border-left:4px solid #3974b8;background:#f4f8fd;padding:12px 16px;border-radius:0 8px 8px 0;margin:12px 0;">
+      <div style="font-size:12px;color:#526176;margin-bottom:2px;">
+       Change recorded
+      </div>
+      <div style="font-size:17px;color:#243247;">
+       Create Det Schdule Header detatl Save opton
+       <span style="font-size:14px;color:#526176;">
+        (wording retained from source)
+       </span>
+       .
+      </div>
+     </div>
+     <div style="margin:12px 0 0;padding:10px 14px;background:#f8fafc;border:1px dashed #9aaec4;border-radius:8px;">
+      <strong style="color:#17365d;">
+       Screenshot to add: Diet Schedule Header
+      </strong>
+      <p style="margin:4px 0 0;color:#526176;font-size:14px;">
+       No screenshot was included for this item in the current project. Add an approved screenshot here when available.
+      </p>
+     </div>
+    </section>
+    <section style="background:#fff;border:1px solid #d8e0ea;border-left:6px solid #d99a22;border-radius:10px;padding:20px;margin:16px 0;">
+     <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;">
+      <h3 id="item-2358" style="color:#244c7a;margin:0 10px 0 0;font-size:19px;">
+       Item 2358: Other — Draft and Final Canteen Request
+      </h3>
+      <span style="display:inline-block;padding:3px 10px;border-radius:999px;font-size:13px;font-weight:bold;white-space:nowrap;background:#e7eef7;color:#17365d;">
+       Requirement
+      </span>
+      <span style="display:inline-block;padding:3px 10px;border-radius:999px;font-size:13px;font-weight:bold;white-space:nowrap;background:#fff7e6;color:#946200;">
+       Pending
+      </span>
+     </div>
+     <div style="display:flex;flex-wrap:wrap;gap:10px 32px;background:#f8fafc;border:1px solid #e1e8f0;border-radius:8px;padding:10px 14px;margin:12px 0 16px;">
+      <div>
+       <div style="font-size:12px;color:#526176;">
+        Reported
+       </div>
+       <div style="font-weight:bold;color:#243247;">
+        22 October 2026
+       </div>
+      </div>
+      <div>
+       <div style="font-size:12px;color:#526176;">
+        Assigned developer (shown in sheet)
+       </div>
+       <div style="font-weight:bold;color:#243247;">
+        Subhash
+       </div>
+      </div>
+      <div>
+       <div style="font-size:12px;color:#526176;">
+        Recorded by
+       </div>
+       <div style="font-weight:bold;color:#243247;">
+        Rachana
+       </div>
+      </div>
+     </div>
+     <div style="border-left:4px solid #3974b8;background:#f4f8fd;padding:12px 16px;border-radius:0 8px 8px 0;margin:12px 0;">
+      <div style="font-size:12px;color:#526176;margin-bottom:2px;">
+       Change recorded
+      </div>
+      <div style="font-size:17px;color:#243247;">
+       Add Draft and Final Canteen request option in Diet Schedule page save.
+      </div>
+     </div>
+     <div style="margin:12px 0 0;padding:10px 14px;background:#f8fafc;border:1px dashed #9aaec4;border-radius:8px;">
+      <strong style="color:#17365d;">
+       Screenshot to add: Diet Schedule Draft/Final option
+      </strong>
+      <p style="margin:4px 0 0;color:#526176;font-size:14px;">
+       No screenshot was included for this item in the current project. Add an approved screenshot here when available.
+      </p>
+     </div>
+    </section>
+    <section style="background:#fff;border:1px solid #d8e0ea;border-left:6px solid #d99a22;border-radius:10px;padding:20px;margin:16px 0;">
+     <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;">
+      <h3 id="item-2359" style="color:#244c7a;margin:0 10px 0 0;font-size:19px;">
+       Item 2359: Other — Diet Schedule List
+      </h3>
+      <span style="display:inline-block;padding:3px 10px;border-radius:999px;font-size:13px;font-weight:bold;white-space:nowrap;background:#e7eef7;color:#17365d;">
+       Requirement
+      </span>
+      <span style="display:inline-block;padding:3px 10px;border-radius:999px;font-size:13px;font-weight:bold;white-space:nowrap;background:#fff7e6;color:#946200;">
+       Pending
+      </span>
+     </div>
+     <div style="display:flex;flex-wrap:wrap;gap:10px 32px;background:#f8fafc;border:1px solid #e1e8f0;border-radius:8px;padding:10px 14px;margin:12px 0 16px;">
+      <div>
+       <div style="font-size:12px;color:#526176;">
+        Reported
+       </div>
+       <div style="font-weight:bold;color:#243247;">
+        22 October 2026
+       </div>
+      </div>
+      <div>
+       <div style="font-size:12px;color:#526176;">
+        Assigned developer (shown in sheet)
+       </div>
+       <div style="font-weight:bold;color:#243247;">
+        Subhash
+       </div>
+      </div>
+      <div>
+       <div style="font-size:12px;color:#526176;">
+        Recorded by
+       </div>
+       <div style="font-weight:bold;color:#243247;">
+        Rachana
+       </div>
+      </div>
+     </div>
+     <div style="border-left:4px solid #3974b8;background:#f4f8fd;padding:12px 16px;border-radius:0 8px 8px 0;margin:12px 0;">
+      <div style="font-size:12px;color:#526176;margin-bottom:2px;">
+       Change recorded
+      </div>
+      <div style="font-size:17px;color:#243247;">
+       <ul style="margin:4px 0 0;padding-left:20px;">
+        <li>
+         Show the Diet Schedule List in a single row.
+        </li>
+        <li>
+         After clicking Edit, show the remaining details of that patient.
+        </li>
+        <li>
+         Also show the Draft/Final flag.
+        </li>
+       </ul>
+      </div>
+     </div>
+     <div style="margin:12px 0 0;padding:10px 14px;background:#f8fafc;border:1px dashed #9aaec4;border-radius:8px;">
+      <strong style="color:#17365d;">
+       Screenshot to add: Diet Schedule List and Edit screen
+      </strong>
+      <p style="margin:4px 0 0;color:#526176;font-size:14px;">
+       No screenshot was included for this item in the current project. Add an approved screenshot here when available.
+      </p>
+     </div>
+    </section>
+    <section style="background:#fff;border:1px solid #d8e0ea;border-left:6px solid #d99a22;border-radius:10px;padding:20px;margin:16px 0;">
+     <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;">
+      <h3 id="item-2360" style="color:#244c7a;margin:0 10px 0 0;font-size:19px;">
+       Item 2360: Other — Canteen Request Details
+      </h3>
+      <span style="display:inline-block;padding:3px 10px;border-radius:999px;font-size:13px;font-weight:bold;white-space:nowrap;background:#e7eef7;color:#17365d;">
+       Requirement
+      </span>
+      <span style="display:inline-block;padding:3px 10px;border-radius:999px;font-size:13px;font-weight:bold;white-space:nowrap;background:#fff7e6;color:#946200;">
+       Pending
+      </span>
+     </div>
+     <div style="display:flex;flex-wrap:wrap;gap:10px 32px;background:#f8fafc;border:1px solid #e1e8f0;border-radius:8px;padding:10px 14px;margin:12px 0 16px;">
+      <div>
+       <div style="font-size:12px;color:#526176;">
+        Reported
+       </div>
+       <div style="font-weight:bold;color:#243247;">
+        22 October 2026
+       </div>
+      </div>
+      <div>
+       <div style="font-size:12px;color:#526176;">
+        Assigned developer (shown in sheet)
+       </div>
+       <div style="font-weight:bold;color:#243247;">
+        Subhash
+       </div>
+      </div>
+      <div>
+       <div style="font-size:12px;color:#526176;">
+        Recorded by
+       </div>
+       <div style="font-weight:bold;color:#243247;">
+        Rachana
+       </div>
+      </div>
+     </div>
+     <div style="border-left:4px solid #3974b8;background:#f4f8fd;padding:12px 16px;border-radius:0 8px 8px 0;margin:12px 0;">
+      <div style="font-size:12px;color:#526176;margin-bottom:2px;">
+       Change recorded
+      </div>
+      <div style="font-size:17px;color:#243247;">
+       Show all canteen request details for the meal process in the Diet Schedule List.
+      </div>
+     </div>
+     <div style="margin:12px 0 0;padding:10px 14px;background:#f8fafc;border:1px dashed #9aaec4;border-radius:8px;">
+      <strong style="color:#17365d;">
+       Screenshot to add: Diet Schedule List with canteen request details
+      </strong>
+      <p style="margin:4px 0 0;color:#526176;font-size:14px;">
+       No screenshot was included for this item in the current project. Add an approved screenshot here when available.
+      </p>
+     </div>
+    </section>
+    <section style="background:#fff;border:1px solid #d8e0ea;border-left:6px solid #d99a22;border-radius:10px;padding:20px;margin:16px 0;">
+     <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;">
+      <h3 id="item-2361" style="color:#244c7a;margin:0 10px 0 0;font-size:19px;">
+       Item 2361: Other — Patient Assessment
+      </h3>
+      <span style="display:inline-block;padding:3px 10px;border-radius:999px;font-size:13px;font-weight:bold;white-space:nowrap;background:#e7eef7;color:#17365d;">
+       Requirement
+      </span>
+      <span style="display:inline-block;padding:3px 10px;border-radius:999px;font-size:13px;font-weight:bold;white-space:nowrap;background:#fff7e6;color:#946200;">
+       Pending
+      </span>
+     </div>
+     <div style="display:flex;flex-wrap:wrap;gap:10px 32px;background:#f8fafc;border:1px solid #e1e8f0;border-radius:8px;padding:10px 14px;margin:12px 0 16px;">
+      <div>
+       <div style="font-size:12px;color:#526176;">
+        Reported
+       </div>
+       <div style="font-weight:bold;color:#243247;">
+        22 October 2026
+       </div>
+      </div>
+      <div>
+       <div style="font-size:12px;color:#526176;">
+        Assigned developer (shown in sheet)
+       </div>
+       <div style="font-weight:bold;color:#243247;">
+        Subhash
+       </div>
+      </div>
+      <div>
+       <div style="font-size:12px;color:#526176;">
+        Recorded by
+       </div>
+       <div style="font-weight:bold;color:#243247;">
+        Rachana
+       </div>
+      </div>
+     </div>
+     <div style="border-left:4px solid #3974b8;background:#f4f8fd;padding:12px 16px;border-radius:0 8px 8px 0;margin:12px 0;">
+      <div style="font-size:12px;color:#526176;margin-bottom:2px;">
+       Change recorded
+      </div>
+      <div style="font-size:17px;color:#243247;">
+       Show the patient’s assessment in card form.
+      </div>
+     </div>
+     <div style="margin:12px 0 0;padding:10px 14px;background:#f8fafc;border:1px dashed #9aaec4;border-radius:8px;">
+      <strong style="color:#17365d;">
+       Screenshot to add: Patient assessment card
+      </strong>
+      <p style="margin:4px 0 0;color:#526176;font-size:14px;">
+       No screenshot was included for this item in the current project. Add an approved screenshot here when available.
+      </p>
+     </div>
+    </section>
+   </section>
+   <section style="background:#fff;border:1px solid #d8e0ea;border-radius:10px;padding:20px;margin:18px 0;">
+    <h2 id="before-publishing" style="color:#17365d;margin-top:0;">
+     Before publishing
+    </h2>
+    <ul>
+     <li>
+      Confirm the release date and release label against the approved release note.
+     </li>
+     <li>
+      Replace screenshot placeholders only with approved screenshots.
+     </li>
+     <li>
+      Confirm the status of each item with the responsible team.
+     </li>
+     <li>
+      Use approved test data and remove patient-identifying information from screenshots.
+     </li>
+    </ul>
+   </section>
+  </main>
+  <footer style="padding:18px 5%;color:#526176;border-top:1px solid #d8e0ea;font-size:14px;">
+   AirmidWiki · Internal release documentation
+  </footer>
+ </body>
+</html>
+
